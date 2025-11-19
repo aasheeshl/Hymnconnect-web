@@ -224,7 +224,7 @@ function App() {
           </p>
         </div>
         <a
-          href="#"
+          href="#https://apps.apple.com/us/app/hymnconnectapp/id6752904013"
           style={{
             fontSize: "11px",
             borderRadius: "999px",
