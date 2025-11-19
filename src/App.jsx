@@ -57,7 +57,7 @@ function formatLyrics(lyrics) {
 const LANGUAGE_LABELS = {
   EN: { name: "English", flag: "🇬🇧" },
   HI: { name: "Hindi", flag: "🇮🇳" },
-  MR: { name: "Marathi", flag: "🇮🇳" },
+  MA: { name: "Marathi", flag: "🇮🇳" },
   // Add more like:
   // TE: { name: "Telugu", flag: "🇮🇳" },
   // TA: { name: "Tamil", flag: "🇮🇳" },
