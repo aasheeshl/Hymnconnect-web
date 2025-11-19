@@ -224,19 +224,13 @@ function App() {
           </p>
         </div>
         <a
-          href="#https://apps.apple.com/us/app/hymnconnectapp/id6752904013"
-          style={{
-            fontSize: "11px",
-            borderRadius: "999px",
-            border: "1px solid rgba(148, 163, 184, 0.7)",
-            padding: "4px 10px",
-            textDecoration: "none",
-            color: "white",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Download iOS App
-        </a>
+  href="https://apps.apple.com/us/app/hymnconnectapp/id6752904013"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="download-ios-button"
+>
+  Download iOS App
+</a>
       </header>
 
       {/* Main content: list (left) + lyrics (right) */}
