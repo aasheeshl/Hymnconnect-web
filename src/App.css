@@ -84,22 +84,31 @@
 
 /* LANGUAGE FILTERS */
 .language-filters {
-  width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   gap: 0.5rem;
+  overflow-x: auto;      /* allows horizontal scroll on very small screens */
+  white-space: nowrap;   /* prevents wrapping */
+  padding-bottom: 0.25rem;
+  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
 }
 
 .lang-chip {
-  flex: 1;
-  min-width: 80px;
-  text-align: center;
-  padding: 0.4rem 0.75rem;
-  border-radius: 50px;
+  padding: 0.4rem 0.9rem;
+  border-radius: 30px;
   border: 1px solid #ccc;
   background: #fff;
+  font-size: 0.9rem;
+  display: inline-block; /* ensures chips stay small and inline */
+  flex-shrink: 0;        /* prevents chips from shrinking too small */
+  cursor: pointer;
 }
 
+.lang-chip.active {
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
+}
 /* SONG LIST */
 .song-list {
   width: 100%;
