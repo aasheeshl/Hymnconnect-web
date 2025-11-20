@@ -40,15 +40,6 @@
 .read-the-docs {
   color: #888;
 }
-.app-root {
-  min-height: 100vh;
-  background: #f5f5f5;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    sans-serif;
-}
-
-/* MAIN (LIST) SCREEN */
-
 /* ROOT */
 .app-root {
   width: 100%;
@@ -171,18 +162,4 @@
 .song-lyrics {
   width: 100%;
   text-align: center;
-}
-
-/* Chorus / verse styling */
-.lyrics-section {
-  margin: 0.4rem 0;
-}
-
-.lyrics-section.chorus {
-  color: #1d4ed8; /* blue chorus */
-  font-weight: 500;
-}
-
-.lyrics-section.verse {
-  color: #111827;
 }
