@@ -22,30 +22,57 @@ function App() {
   }, []);
 
   const filteredSongs = useMemo(() => {
-    const q = searchTerm.trim().toLowerCase();
+  const q = searchTerm.trim().toLowerCase();
 
-    return songs
-      .filter((song) =>
-        languageFilter === "All"
-          ? true
-          : (song.language || "").toLowerCase() === languageFilter.toLowerCase()
-      )
-      .filter((song) => {
-        if (!q) return true;
+  return songs
+    .filter((song) => {
+      if (languageFilter === "All") return true;
 
-        const idStr = String(song.id ?? "").toLowerCase();
-        const title = (song.title ?? "").toLowerCase();
-        const dtitle = (song.dtitle ?? "").toLowerCase();
+      const lang = (song.language || "").toLowerCase().trim();
 
-        // Search by id, title or dtitle
+      if (!lang) return false;
+
+      if (languageFilter === "English") {
         return (
-          idStr.includes(q) ||
-          title.includes(q) ||
-          dtitle.includes(q)
+          lang.includes("english") ||
+          lang === "en" ||
+          lang === "eng"
         );
-      })
-      .sort((a, b) => Number(a.id) - Number(b.id));
-  }, [songs, searchTerm, languageFilter]);
+      }
+
+      if (languageFilter === "Hindi") {
+        return (
+          lang.includes("hindi") ||
+          lang === "hi" ||
+          lang === "hin"
+        );
+      }
+
+      if (languageFilter === "Marathi") {
+        return (
+          lang.includes("marathi") ||
+          lang === "ma" ||
+          lang === "mar"
+        );
+      }
+
+      return true;
+    })
+    .filter((song) => {
+      if (!q) return true;
+
+      const idStr = String(song.id ?? "").toLowerCase();
+      const title = (song.title ?? "").toLowerCase();
+      const dtitle = (song.dtitle ?? "").toLowerCase();
+
+      return (
+        idStr.includes(q) ||
+        title.includes(q) ||
+        dtitle.includes(q)
+      );
+    })
+    .sort((a, b) => Number(a.id) - Number(b.id));
+}, [songs, searchTerm, languageFilter]);
 
   const handleClearSearch = () => setSearchTerm("");
 
