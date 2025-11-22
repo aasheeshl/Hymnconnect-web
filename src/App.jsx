@@ -257,7 +257,7 @@ function App() {
             </h1>
 
             <div
-              className="song-lyrics"
+              className="song-lyrics no-select"
               style={{ fontSize: `${fontSize}px` }}
             >
               {renderLyrics()}
