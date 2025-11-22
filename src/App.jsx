@@ -186,7 +186,7 @@ function MainScreen() {
             <div className="search-input-wrapper">
               <input
                 type="text"
-                placeholder="Search by ID or title..."
+                placeholder="Search by title/Song no./Artis/Author/Album"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-input"
