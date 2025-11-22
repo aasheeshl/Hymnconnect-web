@@ -168,12 +168,12 @@ function MainScreen() {
         </Link>
 
         <div className="header-right">
-          {/* Link to Mobile Apps page */}
+          {/* Link to Mobile Apps page as button */}
           <Link
             to="/mobile-apps"
-            className="apps-link"
+            className="apps-button"
           >
-            Mobile Apps
+            Get the Mobile App
           </Link>
         </div>
       </header>

@@ -1,5 +1,6 @@
 // src/MobileAppsPage.jsx
 import React from "react";
+import { Link } from "react-router-dom";
 import logo from "./assets/hymnconnect-logo.png";
 import appStoreBadge from "./assets/appstore.png";
 import playStoreBadge from "./assets/playstore.png";
@@ -27,7 +28,7 @@ const containerStyle = {
   margin: "0 auto",
   padding: "1.5rem",
   fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-  color: "#0f172a", // slate-900-ish
+  color: "#0f172a",
 };
 
 const cardStyle = {
@@ -80,38 +81,55 @@ const MobileAppsPage = () => {
   return (
     <div style={{ backgroundColor: "#f8fafc", minHeight: "100vh" }}>
       <div style={containerStyle}>
-        {/* Header */}
-        <header
+        {/* Top bar with back button */}
+        <div
           style={{
             display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
             justifyContent: "space-between",
-            gap: "16px",
-            paddingBottom: "12px",
-            marginBottom: "24px",
-            borderBottom: "1px solid #e2e8f0",
+            alignItems: "center",
+            marginBottom: "12px",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <img
-              src={logo}
-              alt="HymnConnect"
-              width={140}          // << fixed size
-              style={{ height: "auto", display: "block" }}
-            />
-            
-          </div>
-          
-        </header>
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              background: "#2563eb",
+              color: "white",
+              padding: "6px 14px",
+              borderRadius: "999px",
+              fontSize: "0.85rem",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              boxShadow: "0 1px 4px rgba(37,99,235,0.4)",
+            }}
+          >
+            <span style={{ fontSize: "1rem" }}>←</span> Back
+          </Link>
 
-        {/* Feature comparison */}
+          {/* Right side left intentionally blank for clean look (can add later if needed) */}
+          <div />
+        </div>
+
+        {/* Centered logo */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "24px",
+          }}
+        >
+          <img
+            src={logo}
+            alt="HymnConnect"
+            width={160}
+            style={{ height: "auto", display: "block" }}
+          />
+        </div>
+
+        {/* Feature comparison table (no heading text) */}
         <section style={{ marginBottom: "28px" }}>
-          <h2 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "6px" }}>
-            Feature comparison
-          </h2>
-          
-
           <div style={tableWrapperStyle}>
             <table style={tableStyle}>
               <thead>
@@ -155,10 +173,6 @@ const MobileAppsPage = () => {
 
         {/* Download sections */}
         <section style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <h2 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "4px" }}>
-            Download the apps
-          </h2>
-
           {/* HymnConnect card */}
           <div style={cardStyle}>
             <div
@@ -192,7 +206,7 @@ const MobileAppsPage = () => {
                 <img
                   src={appStoreBadge}
                   alt="Download HymnConnect on the App Store"
-                  width={170}    // << fixed size
+                  width={170}
                   style={{ height: "auto", display: "block" }}
                 />
               </a>
@@ -202,7 +216,7 @@ const MobileAppsPage = () => {
                 <img
                   src={playStoreBadge}
                   alt="HymnConnect on Google Play (Coming Soon)"
-                  width={170}    // << fixed size
+                  width={170}
                   style={{ height: "auto", display: "block", opacity: 0.4 }}
                 />
                 <span style={{ fontSize: "0.75rem", color: "#6b7280" }}>
@@ -228,6 +242,7 @@ const MobileAppsPage = () => {
                   justifyContent: "space-between",
                   alignItems: "center",
                   gap: "12px",
+                  flexWrap: "wrap",
                 }}
               >
                 <div>
@@ -272,7 +287,7 @@ const MobileAppsPage = () => {
                 <img
                   src={appStoreBadge}
                   alt="Download HymnConnect PRO on the App Store"
-                  width={170}    // << fixed size
+                  width={170}
                   style={{ height: "auto", display: "block" }}
                 />
               </a>
@@ -282,7 +297,7 @@ const MobileAppsPage = () => {
                 <img
                   src={playStoreBadge}
                   alt="HymnConnect PRO on Google Play (Coming Soon)"
-                  width={170}    // << fixed size
+                  width={170}
                   style={{ height: "auto", display: "block", opacity: 0.4 }}
                 />
                 <span style={{ fontSize: "0.75rem", color: "#6b7280" }}>
