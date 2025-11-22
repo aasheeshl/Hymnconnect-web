@@ -164,7 +164,7 @@ function MainScreen() {
             alt="HymnConnect logo"
             className="brand-logo"
           />
-          <span className="brand-name">HymnConnect</span>
+          <span className="brand-name"></span>
         </Link>
 
         <div className="header-right">
