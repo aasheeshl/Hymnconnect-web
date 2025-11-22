@@ -286,6 +286,12 @@ function MainScreen() {
           </main>
         </div>
       )}
+
+      {/* Footer */}
+      <footer className="footer">
+        © {new Date().getFullYear()} Aasheesh Lall. All rights reserved.
+      </footer>
+
     </div>
   );
 }
