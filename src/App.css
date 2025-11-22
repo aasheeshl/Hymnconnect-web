@@ -189,10 +189,16 @@
   background-color: #ffffff;
 }
 
-.brand-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.brand-logo {
+  height: 36px;          /* perfect size for headers */
+  width: auto;           /* keeps aspect ratio */
+  object-fit: contain;   /* prevents stretching */
+}
+
+@media (max-width: 600px) {
+  .brand-logo {
+    height: 30px;        /* slightly smaller on mobile */
+  }
 }
 
 .brand-logo {
