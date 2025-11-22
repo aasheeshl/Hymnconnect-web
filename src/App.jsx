@@ -7,6 +7,49 @@ import logo from "./assets/hymnconnect-logo.png";
 import MobileAppsPage from "./MobileAppsPage";
 
 // ------------------------
+// "Add to Home Screen" button (PWA install)
+// ------------------------
+function InstallPWAButton() {
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handler = (e) => {
+      // Prevent the default mini-infobar
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setVisible(true);
+    };
+
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
+  const handleClick = async () => {
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+
+    // If user accepted, hide the button
+    if (outcome === "accepted") {
+      setVisible(false);
+      setDeferredPrompt(null);
+    }
+  };
+
+  // Only show if browser says app can be installed
+  if (!visible) return null;
+
+  return (
+    <button className="install-button" onClick={handleClick}>
+      Add to Home Screen
+    </button>
+  );
+}
+
+
+// ------------------------
 // Main HymnConnect screen
 // ------------------------
 function MainScreen() {

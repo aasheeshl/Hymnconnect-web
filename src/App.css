@@ -253,3 +253,32 @@
   padding: 16px 0;
   margin-top: 24px;
 }
+
+.install-button {
+  position: fixed;
+  right: 1rem;
+  bottom: 4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+  z-index: 1000;
+  transition: background 0.15s ease, transform 0.1s ease,
+    box-shadow 0.15s ease;
+}
+
+.install-button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.4);
+}
+
+.install-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+}
