@@ -1,10 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { db } from "./firebase";
 import { onValue, ref } from "firebase/database";
 import "./App.css";
-import logo from "./assets/HClogo.png";
+import logo from "./assets/hymnconnect-logo.png";
+import MobileAppsPage from "./MobileAppsPage";
 
-function App() {
+// ------------------------
+// Main HymnConnect screen
+// ------------------------
+function MainScreen() {
   const [songs, setSongs] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [languageFilter, setLanguageFilter] = useState("All");
@@ -23,57 +28,45 @@ function App() {
   }, []);
 
   const filteredSongs = useMemo(() => {
-  const q = searchTerm.trim().toLowerCase();
+    const q = searchTerm.trim().toLowerCase();
 
-  return songs
-    .filter((song) => {
-      if (languageFilter === "All") return true;
+    return songs
+      .filter((song) => {
+        if (languageFilter === "All") return true;
 
-      const lang = (song.language || "").toLowerCase().trim();
+        const lang = (song.language || "").toLowerCase().trim();
 
-      if (!lang) return false;
+        if (!lang) return false;
 
-      if (languageFilter === "English") {
+        if (languageFilter === "English") {
+          return lang.includes("english") || lang === "en" || lang === "eng";
+        }
+
+        if (languageFilter === "Hindi") {
+          return lang.includes("hindi") || lang === "hi" || lang === "hin";
+        }
+
+        if (languageFilter === "Marathi") {
+          return lang.includes("marathi") || lang === "ma" || lang === "mar";
+        }
+
+        return true;
+      })
+      .filter((song) => {
+        if (!q) return true;
+
+        const idStr = String(song.id ?? "").toLowerCase();
+        const title = (song.title ?? "").toLowerCase();
+        const dtitle = (song.dtitle ?? "").toLowerCase();
+
         return (
-          lang.includes("english") ||
-          lang === "en" ||
-          lang === "eng"
+          idStr.includes(q) ||
+          title.includes(q) ||
+          dtitle.includes(q)
         );
-      }
-
-      if (languageFilter === "Hindi") {
-        return (
-          lang.includes("hindi") ||
-          lang === "hi" ||
-          lang === "hin"
-        );
-      }
-
-      if (languageFilter === "Marathi") {
-        return (
-          lang.includes("marathi") ||
-          lang === "ma" ||
-          lang === "mar"
-        );
-      }
-
-      return true;
-    })
-    .filter((song) => {
-      if (!q) return true;
-
-      const idStr = String(song.id ?? "").toLowerCase();
-      const title = (song.title ?? "").toLowerCase();
-      const dtitle = (song.dtitle ?? "").toLowerCase();
-
-      return (
-        idStr.includes(q) ||
-        title.includes(q) ||
-        dtitle.includes(q)
-      );
-    })
-    .sort((a, b) => Number(a.id) - Number(b.id));
-}, [songs, searchTerm, languageFilter]);
+      })
+      .sort((a, b) => Number(a.id) - Number(b.id));
+  }, [songs, searchTerm, languageFilter]);
 
   const handleClearSearch = () => setSearchTerm("");
 
@@ -141,8 +134,8 @@ function App() {
           key={idx}
           className={
             section.type === "chorus"
-              ? "lyrics-section chorus"
-              : "lyrics-section verse"
+              ? "lyrics-section chorus no-select"
+              : "lyrics-section verse no-select"
           }
         >
           {lines.map((l, i) => (
@@ -158,18 +151,32 @@ function App() {
 
   return (
     <div className="app-root">
+      {/* Branding header */}
+      <header className="app-header">
+        {/* Click logo/name to go "home" and clear selected song */}
+        <Link
+          to="/"
+          className="brand-left"
+          onClick={() => setSelectedSong(null)}
+        >
+          <img
+            src={logo}
+            alt="HymnConnect logo"
+            className="brand-logo"
+          />
+          <span className="brand-name">HymnConnect</span>
+        </Link>
 
-{/* Branding header */}
-    <header className="app-header">
-      <div className="brand-left">
-        <img
-          src={logo}
-          alt="HymnConnect logo"
-          className="brand-logo"
-        />
-        <span className="brand-name">HymnConnect</span>
-      </div>
-    </header>
+        <div className="header-right">
+          {/* Link to Mobile Apps page */}
+          <Link
+            to="/mobile-apps"
+            className="apps-link"
+          >
+            Mobile Apps
+          </Link>
+        </div>
+      </header>
 
       {/* LIST SCREEN */}
       {!selectedSong && (
@@ -280,6 +287,20 @@ function App() {
         </div>
       )}
     </div>
+  );
+}
+
+// ------------------------
+// Router wrapper
+// ------------------------
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainScreen />} />
+        <Route path="/mobile-apps" element={<MobileAppsPage />} />
+      </Routes>
+    </Router>
   );
 }
 
