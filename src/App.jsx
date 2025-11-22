@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { db } from "./firebase";
-import { onValue, ref } from "firebase/database";
+import { onValue, ref, runTransaction } from "firebase/database";
 import "./App.css";
 import logo from "./assets/hymnconnect-logo.png";
 import MobileAppsPage from "./MobileAppsPage";
@@ -58,6 +58,7 @@ function MainScreen() {
   const [languageFilter, setLanguageFilter] = useState("All");
   const [selectedSong, setSelectedSong] = useState(null);
   const [fontSize, setFontSize] = useState(18);
+  const [visitorCount, setVisitorCount] = useState(0);
 
   useEffect(() => {
     const songsRef = ref(db, "songs");
@@ -69,6 +70,39 @@ function MainScreen() {
 
     return () => unsubscribe();
   }, []);
+
+
+  useEffect(() => {
+    const visitsRef = ref(db, "stats/visits");
+
+    // 1) Increment only once per browser (using localStorage)
+    const alreadyCounted = localStorage.getItem("hc_visit_counted");
+    if (!alreadyCounted) {
+      runTransaction(visitsRef, (current) => {
+        if (current === null || current === undefined) {
+          return 1;
+        }
+        return current + 1;
+      })
+        .then(() => {
+          localStorage.setItem("hc_visit_counted", "1");
+        })
+        .catch((err) => {
+          console.error("Error updating visit counter:", err);
+        });
+    }
+
+    // 2) Listen for changes to show live visitor count
+    const unsubscribe = onValue(visitsRef, (snapshot) => {
+      const val = snapshot.val();
+      if (typeof val === "number") {
+        setVisitorCount(val);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
 
   const filteredSongs = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
@@ -333,6 +367,10 @@ function MainScreen() {
       {/* Footer */}
       <footer className="footer">
         © {new Date().getFullYear()} Aasheesh Lall. All rights reserved.
+        <br />
+        <span className="visitor-count">
+          Visitors: {visitorCount}
+        </span>
       </footer>
 
     </div>
