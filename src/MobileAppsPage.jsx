@@ -100,20 +100,9 @@ const MobileAppsPage = () => {
               width={140}          // << fixed size
               style={{ height: "auto", display: "block" }}
             />
-            <div>
-              <h1 style={{ fontSize: "1.35rem", fontWeight: 600, margin: 0 }}>
-                HymnConnect Mobile Apps
-              </h1>
-              <p style={{ margin: "4px 0 0", fontSize: "0.85rem", color: "#6b7280" }}>
-                Compare HymnConnect and HymnConnect PRO.
-              </p>
-            </div>
+            
           </div>
-          <div style={{ fontSize: "0.75rem", color: "#6b7280", textAlign: "right" }}>
-            Available on iOS
-            <br />
-            Android coming soon
-          </div>
+          
         </header>
 
         {/* Feature comparison */}
@@ -121,10 +110,7 @@ const MobileAppsPage = () => {
           <h2 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "6px" }}>
             Feature comparison
           </h2>
-          <p style={{ fontSize: "0.85rem", color: "#6b7280", marginBottom: "12px" }}>
-            Features 1–10 are available in both apps. Features 11–15 are exclusive to{" "}
-            <span style={{ fontWeight: 600 }}>HymnConnect PRO</span>.
-          </p>
+          
 
           <div style={tableWrapperStyle}>
             <table style={tableStyle}>
