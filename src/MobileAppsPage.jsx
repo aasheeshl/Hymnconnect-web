@@ -22,80 +22,142 @@ const rows = [
   { no: 15, feature: "Priority Updates", hymnConnect: false, hymnConnectPro: true },
 ];
 
+const containerStyle = {
+  maxWidth: "900px",
+  margin: "0 auto",
+  padding: "1.5rem",
+  fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+  color: "#0f172a", // slate-900-ish
+};
+
+const cardStyle = {
+  borderRadius: "16px",
+  border: "1px solid #e2e8f0",
+  padding: "16px 20px",
+  backgroundColor: "#ffffff",
+  boxShadow: "0 1px 3px rgba(15,23,42,0.08)",
+};
+
+const proCardStyle = {
+  ...cardStyle,
+  borderColor: "#c7d2fe",
+  backgroundColor: "#eef2ff",
+};
+
+const tableWrapperStyle = {
+  overflowX: "auto",
+  borderRadius: "16px",
+  border: "1px solid #e2e8f0",
+  backgroundColor: "#ffffff",
+  boxShadow: "0 1px 3px rgba(15,23,42,0.06)",
+};
+
+const tableStyle = {
+  width: "100%",
+  borderCollapse: "collapse",
+  fontSize: "0.9rem",
+};
+
+const thStyle = {
+  padding: "8px 12px",
+  borderBottom: "1px solid #e5e7eb",
+  textAlign: "left",
+  fontSize: "0.75rem",
+  fontWeight: 600,
+  textTransform: "uppercase",
+  letterSpacing: "0.05em",
+  color: "#6b7280",
+  backgroundColor: "#f3f4f6",
+};
+
+const tdStyle = {
+  padding: "8px 12px",
+  borderBottom: "1px solid #e5e7eb",
+  verticalAlign: "top",
+};
+
 const MobileAppsPage = () => {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        {/* Header with logo */}
-        <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-4 mb-6">
-          <div className="flex items-center gap-3">
+    <div style={{ backgroundColor: "#f8fafc", minHeight: "100vh" }}>
+      <div style={containerStyle}>
+        {/* Header */}
+        <header
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "16px",
+            paddingBottom: "12px",
+            marginBottom: "24px",
+            borderBottom: "1px solid #e2e8f0",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <img
               src={logo}
               alt="HymnConnect"
-              className="h-10 w-auto sm:h-12"
+              width={140}          // << fixed size
+              style={{ height: "auto", display: "block" }}
             />
             <div>
-              <h1 className="text-xl sm:text-2xl font-semibold text-slate-900">
+              <h1 style={{ fontSize: "1.35rem", fontWeight: 600, margin: 0 }}>
                 HymnConnect Mobile Apps
               </h1>
-              <p className="text-sm text-slate-500">
+              <p style={{ margin: "4px 0 0", fontSize: "0.85rem", color: "#6b7280" }}>
                 Compare HymnConnect and HymnConnect PRO.
               </p>
             </div>
           </div>
-          <div className="text-xs sm:text-sm text-slate-500">
-            Available on iOS • Android coming soon
+          <div style={{ fontSize: "0.75rem", color: "#6b7280", textAlign: "right" }}>
+            Available on iOS
+            <br />
+            Android coming soon
           </div>
         </header>
 
-        {/* Feature comparison table */}
-        <section className="mb-10">
-          <h2 className="text-lg font-semibold text-slate-900 mb-2">
+        {/* Feature comparison */}
+        <section style={{ marginBottom: "28px" }}>
+          <h2 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "6px" }}>
             Feature comparison
           </h2>
-          <p className="text-sm text-slate-500 mb-4">
+          <p style={{ fontSize: "0.85rem", color: "#6b7280", marginBottom: "12px" }}>
             Features 1–10 are available in both apps. Features 11–15 are exclusive to{" "}
-            <span className="font-semibold">HymnConnect PRO</span>.
+            <span style={{ fontWeight: 600 }}>HymnConnect PRO</span>.
           </p>
 
-          <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
-            <table className="min-w-full text-sm">
-              <thead className="bg-slate-100">
+          <div style={tableWrapperStyle}>
+            <table style={tableStyle}>
+              <thead>
                 <tr>
-                  <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 w-12">
-                    #
-                  </th>
-                  <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    Feature
-                  </th>
-                  <th className="px-3 py-2 text-center text-xs font-semibold uppercase tracking-wide text-slate-500 w-32">
-                    HymnConnect
-                  </th>
-                  <th className="px-3 py-2 text-center text-xs font-semibold uppercase tracking-wide text-slate-500 w-40">
-                    HymnConnect PRO
-                  </th>
+                  <th style={{ ...thStyle, width: "40px" }}>#</th>
+                  <th style={thStyle}>Feature</th>
+                  <th style={{ ...thStyle, textAlign: "center", width: "120px" }}>HymnConnect</th>
+                  <th style={{ ...thStyle, textAlign: "center", width: "150px" }}>HymnConnect PRO</th>
                 </tr>
               </thead>
               <tbody>
                 {rows.map((row, idx) => (
                   <tr
                     key={row.no}
-                    className={idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"}
+                    style={{
+                      backgroundColor: idx % 2 === 0 ? "#ffffff" : "#f9fafb",
+                    }}
                   >
-                    <td className="px-3 py-2 align-top text-slate-700">
-                      {row.no}
-                    </td>
-                    <td className="px-3 py-2 align-top text-slate-800">
-                      {row.feature}
-                    </td>
-                    <td className="px-3 py-2 align-top text-center">
-                      {row.hymnConnect && (
-                        <span className="text-emerald-600 font-semibold">✓</span>
+                    <td style={tdStyle}>{row.no}</td>
+                    <td style={tdStyle}>{row.feature}</td>
+                    <td style={{ ...tdStyle, textAlign: "center" }}>
+                      {row.hymnConnect ? (
+                        <span style={{ color: "#059669", fontWeight: 600 }}>✓</span>
+                      ) : (
+                        ""
                       )}
                     </td>
-                    <td className="px-3 py-2 align-top text-center">
-                      {row.hymnConnectPro && (
-                        <span className="text-emerald-600 font-semibold">✓</span>
+                    <td style={{ ...tdStyle, textAlign: "center" }}>
+                      {row.hymnConnectPro ? (
+                        <span style={{ color: "#059669", fontWeight: 600 }}>✓</span>
+                      ) : (
+                        ""
                       )}
                     </td>
                   </tr>
@@ -106,47 +168,58 @@ const MobileAppsPage = () => {
         </section>
 
         {/* Download sections */}
-        <section className="space-y-6">
-          <h2 className="text-lg font-semibold text-slate-900">
+        <section style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          <h2 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "4px" }}>
             Download the apps
           </h2>
 
           {/* HymnConnect card */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
-              <div>
-                <h3 className="text-base sm:text-lg font-semibold text-slate-900">
-                  HymnConnect
-                </h3>
-                <p className="text-sm text-slate-500">
-                  The core HymnConnect experience with powerful search and offline access.
-                </p>
-              </div>
+          <div style={cardStyle}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "4px",
+                marginBottom: "12px",
+              }}
+            >
+              <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 600 }}>HymnConnect</h3>
+              <p style={{ margin: 0, fontSize: "0.85rem", color: "#6b7280" }}>
+                The core HymnConnect experience with powerful search and offline access.
+              </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4">
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: "12px",
+              }}
+            >
               {/* App Store */}
               <a
                 href="https://apps.apple.com/in/app/hymnconnectapp/id6752904013"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block"
               >
                 <img
                   src={appStoreBadge}
                   alt="Download HymnConnect on the App Store"
-                  className="h-12 w-auto"
+                  width={170}    // << fixed size
+                  style={{ height: "auto", display: "block" }}
                 />
               </a>
 
               {/* Play Store - Coming Soon */}
-              <div className="flex items-center gap-2">
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <img
                   src={playStoreBadge}
                   alt="HymnConnect on Google Play (Coming Soon)"
-                  className="h-12 w-auto opacity-40"
+                  width={170}    // << fixed size
+                  style={{ height: "auto", display: "block", opacity: 0.4 }}
                 />
-                <span className="text-xs text-slate-500">
+                <span style={{ fontSize: "0.75rem", color: "#6b7280" }}>
                   Coming soon on Google Play
                 </span>
               </div>
@@ -154,44 +227,79 @@ const MobileAppsPage = () => {
           </div>
 
           {/* HymnConnect PRO card */}
-          <div className="rounded-2xl border border-indigo-200 bg-indigo-50/60 p-4 sm:p-5 shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
-              <div>
-                <h3 className="text-base sm:text-lg font-semibold text-slate-900">
-                  HymnConnect PRO
-                </h3>
-                <p className="text-sm text-slate-600">
-                  Unlock playlists, slideshow mode and priority updates—designed for worship leaders and teams.
-                </p>
+          <div style={proCardStyle}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "4px",
+                marginBottom: "12px",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  gap: "12px",
+                }}
+              >
+                <div>
+                  <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 600 }}>
+                    HymnConnect PRO
+                  </h3>
+                  <p style={{ margin: 0, fontSize: "0.85rem", color: "#4b5563" }}>
+                    Unlock playlists, slideshow mode and priority updates—designed for worship
+                    leaders and teams.
+                  </p>
+                </div>
+                <span
+                  style={{
+                    backgroundColor: "#4f46e5",
+                    color: "#ffffff",
+                    borderRadius: "999px",
+                    padding: "4px 10px",
+                    fontSize: "0.7rem",
+                    fontWeight: 600,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  PRO Features
+                </span>
               </div>
-              <span className="inline-flex items-center rounded-full bg-indigo-600 px-3 py-1 text-xs font-medium text-white">
-                PRO Features
-              </span>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4">
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: "12px",
+              }}
+            >
               {/* App Store */}
               <a
                 href="https://apps.apple.com/in/app/hymnconnect-pro/id6754710563"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block"
               >
                 <img
                   src={appStoreBadge}
                   alt="Download HymnConnect PRO on the App Store"
-                  className="h-12 w-auto"
+                  width={170}    // << fixed size
+                  style={{ height: "auto", display: "block" }}
                 />
               </a>
 
               {/* Play Store - Coming Soon */}
-              <div className="flex items-center gap-2">
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <img
                   src={playStoreBadge}
                   alt="HymnConnect PRO on Google Play (Coming Soon)"
-                  className="h-12 w-auto opacity-40"
+                  width={170}    // << fixed size
+                  style={{ height: "auto", display: "block", opacity: 0.4 }}
                 />
-                <span className="text-xs text-slate-500">
+                <span style={{ fontSize: "0.75rem", color: "#6b7280" }}>
                   Coming soon on Google Play
                 </span>
               </div>
