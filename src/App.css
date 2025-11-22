@@ -179,3 +179,28 @@
   -moz-user-select: none;
   -ms-user-select: none;
 }
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 16px;
+  border-bottom: 1px solid #ddd;
+  background-color: #ffffff;
+}
+
+.brand-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-logo {
+  height: 32px;   /* adjust as needed */
+  width: auto;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: 600;
+}
