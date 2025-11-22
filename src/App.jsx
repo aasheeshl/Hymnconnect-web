@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { db } from "./firebase";
 import { onValue, ref } from "firebase/database";
 import "./App.css";
+import logo from "./assets/HClogo.png";
 
 function App() {
   const [songs, setSongs] = useState([]);
@@ -157,6 +158,19 @@ function App() {
 
   return (
     <div className="app-root">
+
+{/* Branding header */}
+    <header className="app-header">
+      <div className="brand-left">
+        <img
+          src={logo}
+          alt="HymnConnect logo"
+          className="brand-logo"
+        />
+        <span className="brand-name">HymnConnect</span>
+      </div>
+    </header>
+
       {/* LIST SCREEN */}
       {!selectedSong && (
         <div className="main-screen">
