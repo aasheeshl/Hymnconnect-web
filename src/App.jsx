@@ -5,7 +5,7 @@ import { onValue, ref, runTransaction } from "firebase/database";
 import "./App.css";
 import logo from "./assets/hymnconnect-logo.png";
 import MobileAppsPage from "./MobileAppsPage";
-
+ 
 // ------------------------
 // "Add to Home Screen" button (PWA install)
 // ------------------------
@@ -59,6 +59,23 @@ function MainScreen() {
   const [selectedSong, setSelectedSong] = useState(null);
   const [fontSize, setFontSize] = useState(18);
   const [visitorCount, setVisitorCount] = useState(0);
+  const [totalVisitors, setTotalVisitors] = useState(0);
+  const [todayVisitors, setTodayVisitors] = useState(0);
+  
+  // Helper to get today's date in YYYY-MM-DD (India time)
+  const getTodayKey = () => {
+    const todayInIST = new Date().toLocaleString("en-US", {
+      timeZone: "Asia/Kolkata",
+    });
+    const d = new Date(todayInIST);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const todayKey = getTodayKey();
+
 
   useEffect(() => {
     const songsRef = ref(db, "songs");
@@ -102,6 +119,35 @@ function MainScreen() {
 
     return () => unsubscribe();
   }, []);
+
+// NEW: daily visitors
+  useEffect(() => {
+    // Daily visitors stored at stats/daily/YYYY-MM-DD
+    const dailyRef = ref(db, `stats/daily/${todayKey}`);
+
+    // Increment today's count on each page load
+    runTransaction(dailyRef, (current) => {
+      if (current === null || current === undefined) {
+        return 1;
+      }
+      return current + 1;
+    }).catch((err) => {
+      console.error("Error updating daily visit counter:", err);
+    });
+
+    // Listen for changes so UI updates live
+    const unsubscribe = onValue(dailyRef, (snapshot) => {
+      const val = snapshot.val();
+      if (typeof val === "number") {
+        setTodayVisitors(val);
+      } else {
+        setTodayVisitors(0);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [todayKey]);
+  
 
 
   const filteredSongs = useMemo(() => {
@@ -370,6 +416,7 @@ function MainScreen() {
         <br />
         <span className="visitor-count">
           Visitors: {visitorCount}
+          Today's visitor
         </span>
       </footer>
 
