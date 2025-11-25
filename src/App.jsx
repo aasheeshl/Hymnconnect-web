@@ -211,8 +211,8 @@ function MainScreen() {
           key={idx}
           className={
             section.type === "chorus"
-              ? "lyrics-section chorus no-select"
-              : "lyrics-section verse no-select"
+              ? "lyrics-section chorus" /*no-select*/
+              : "lyrics-section verse" /*no-select*/
           }
         >
           {lines.map((l, i) => (
@@ -355,7 +355,7 @@ function MainScreen() {
             </h1>
 
             <div
-              className="song-lyrics no-select"
+              className="song-lyrics" /*no-select*/
               style={{ fontSize: `${fontSize}px` }}
             >
               {renderLyrics()}
