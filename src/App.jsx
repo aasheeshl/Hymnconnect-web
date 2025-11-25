@@ -415,7 +415,7 @@ function MainScreen() {
         © {new Date().getFullYear()} Aasheesh Lall. All rights reserved.
         <br />
         <span className="visitor-count">
-          {visitorCount} | {todayVisitors}
+          {visitorCount}|{todayVisitors}
         </span>
       </footer>
 
