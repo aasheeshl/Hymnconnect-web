@@ -120,26 +120,37 @@ function MainScreen() {
     return () => unsubscribe();
   }, []);
 
-// NEW: daily visitors
+  // NEW: daily unique visitors
   useEffect(() => {
-    // Daily visitors stored at stats/daily/YYYY-MM-DD
     const dailyRef = ref(db, `stats/daily/${todayKey}`);
 
-    // Increment today's count on each page load
-    runTransaction(dailyRef, (current) => {
-      if (current === null || current === undefined) {
-        return 1;
-      }
-      return current + 1;
-    }).catch((err) => {
-      console.error("Error updating daily visit counter:", err);
-    });
+    // Make sure we only count this browser ONCE per day
+    const dailyLocalKey = `hc_visit_counted_${todayKey}`;
+    const alreadyCountedToday = localStorage.getItem(dailyLocalKey);
+
+    if (!alreadyCountedToday) {
+      runTransaction(dailyRef, (current) => {
+        // If it's missing or not a number, start at 1
+        if (typeof current !== "number") {
+          return 1;
+        }
+        return current + 1;
+      })
+        .then(() => {
+          localStorage.setItem(dailyLocalKey, "1");
+        })
+        .catch((err) => {
+          console.error("Error updating daily visit counter:", err);
+        });
+    }
 
     // Listen for changes so UI updates live
     const unsubscribe = onValue(dailyRef, (snapshot) => {
       const val = snapshot.val();
       if (typeof val === "number") {
         setTodayVisitors(val);
+      } else if (typeof val === "string" && !isNaN(Number(val))) {
+        setTodayVisitors(Number(val));
       } else {
         setTodayVisitors(0);
       }
